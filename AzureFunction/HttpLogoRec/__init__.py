@@ -20,14 +20,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     uid = req.route_params.get('userid')
 
-    if not uid:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            uid = req_body.get('userid')
-
     if uid:
         if not uid in top_rated.keys():
          return func.HttpResponse("Found no user with this id")
@@ -37,4 +29,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         sim = np.argsort(sim)[-5:]
         return func.HttpResponse(str(sim))
     else:
-        return func.HttpResponse("Pass a user id in the query string or in the request body for a recommandation")
+        return func.HttpResponse("Pass a user id in the url binding for a recommandation")

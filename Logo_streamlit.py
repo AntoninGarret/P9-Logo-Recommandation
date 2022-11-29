@@ -17,6 +17,9 @@ try:
     resp = requests.post(url)
 except:
     st.error("Failed to connect to the API")
-if resp.text is not "":
-    st.write("Articles recommandés : ", resp.text)
+if resp.text != "":
+    if resp.text != "Found no user with this id":
+        st.write("Articles recommandés : ", resp.text)
+    else:
+        st.write(resp.text)
 
